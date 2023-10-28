@@ -1,10 +1,13 @@
-public class PolyTerm {
-    // The coefficient of the polynomial term:
-    private double scalar;
+/**
+ * A single polynomial term. This class represents any function raised to a power and multiplied by a scalar value.
+ * Examples:
+ *      2.5x^2
+ *      3(x + 1)^3
+ *      x^0.5 (which is just sqrt(x))
+ * @param scalar
+ * @param body
+ * @param power
+ */
+public record PolyTerm(double scalar, Function body, double power) {
 
-    // The body of the polynomial term (the variable):
-    private Function body;
-
-    // The power that the body is raised to:
-    private double power;
 }
