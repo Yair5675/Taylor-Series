@@ -31,4 +31,22 @@ public class TermList {
         this.head = null;
         this.tail = null;
     }
+
+    /**
+     * Adds a function as the outermost function to the TermList.
+     * @param func: A function which will be the new outermost function in the Term.
+     */
+    public void append_start(Function func) {
+        // If there is no head (by that check there isn't a tail either):
+        if (this.head == null) {
+            this.head = new TermNode(null, func, null);
+            this.tail = this.head;
+        }
+        // If there is, connect it to the start:
+        else {
+            final TermNode new_head = new TermNode(null, func, this.head);
+            this.head.prev = new_head;
+            this.head = new_head;
+        }
+    }
 }
