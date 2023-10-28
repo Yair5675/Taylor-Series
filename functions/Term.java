@@ -1,6 +1,6 @@
 package functions;
 
-public class Term {
+public class Term implements Function {
     // The outermost function in the term:
     private TermNode head;
 
@@ -65,6 +65,23 @@ public class Term {
             final TermNode new_tail = new TermNode(this.tail, func, null);
             this.tail.next = new_tail;
             this.tail = new_tail;
+        }
+    }
+
+    @Override
+    public double compute(double x) {
+        if (this.tail != null) {
+            // Going from the innermost function outwards to compute the term:
+            TermNode pointer = this.tail;
+            while (pointer != null) {
+                x = pointer.func.compute(x);
+                pointer = pointer.prev;
+            }
+
+            return x;
+        }
+        else {
+            return 0;
         }
     }
 }
