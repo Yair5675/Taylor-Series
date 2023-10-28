@@ -8,6 +8,9 @@
  * @param body
  * @param power
  */
-public record PolyTerm(double scalar, Function body, double power) {
-
+public record PolyTerm(double scalar, Function body, double power) implements Function {
+    @Override
+    public double compute(double x) {
+        return this.scalar * Math.pow(this.body.compute(x), this.power);
+    }
 }
