@@ -1,6 +1,6 @@
 package functions;
 
-public class TermList {
+public class Term {
     // The outermost function in the term:
     private TermNode head;
 
@@ -27,13 +27,13 @@ public class TermList {
         }
     }
 
-    public TermList() {
+    public Term() {
         this.head = null;
         this.tail = null;
     }
 
     /**
-     * Adds a function as the outermost function to the TermList.
+     * Adds a function as the outermost function to the Term.
      * @param func A function which will be the new outermost function in the Term.
      */
     public void append_start(Function func) {
@@ -51,7 +51,7 @@ public class TermList {
     }
 
     /**
-     * Adds a function as the innermost function to the TermList.
+     * Adds a function as the innermost function to the Term.
      * @param func A function which will be the new innermost function in the Term.
      */
     public void append_end(Function func) {
