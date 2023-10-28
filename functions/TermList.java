@@ -1,6 +1,12 @@
 package functions;
 
 public class TermList {
+    // The outermost function in the term:
+    private TermNode head;
+
+    // The innermost function in the term:
+    private TermNode tail;
+
     /**
      * A class to represent a function within another function and to serve as a node in the overall function chain.
      */
@@ -19,5 +25,10 @@ public class TermList {
             this.func = func;
             this.next = next;
         }
+    }
+
+    public TermList() {
+        this.head = null;
+        this.tail = null;
     }
 }
