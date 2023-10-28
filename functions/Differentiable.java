@@ -1,5 +1,5 @@
 package functions;
 
 public interface Differentiable {
-    Function differentiate();
+    <T extends Function & Differentiable> T differentiate();
 }
