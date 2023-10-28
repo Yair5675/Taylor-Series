@@ -34,7 +34,7 @@ public class TermList {
 
     /**
      * Adds a function as the outermost function to the TermList.
-     * @param func: A function which will be the new outermost function in the Term.
+     * @param func A function which will be the new outermost function in the Term.
      */
     public void append_start(Function func) {
         // If there is no head (by that check there isn't a tail either):
@@ -47,6 +47,24 @@ public class TermList {
             final TermNode new_head = new TermNode(null, func, this.head);
             this.head.prev = new_head;
             this.head = new_head;
+        }
+    }
+
+    /**
+     * Adds a function as the innermost function to the TermList.
+     * @param func A function which will be the new innermost function in the Term.
+     */
+    public void append_end(Function func) {
+        // If there is no tail (by that check there isn't a head either):
+        if (this.tail == null) {
+            this.tail = new TermNode(null, func, null);
+            this.head = this.tail;
+        }
+        // If there is, connect it to the end:
+        else {
+            final TermNode new_tail = new TermNode(this.tail, func, null);
+            this.tail.next = new_tail;
+            this.tail = new_tail;
         }
     }
 }
