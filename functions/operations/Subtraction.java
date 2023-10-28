@@ -11,4 +11,10 @@ public record Subtraction(Function fx, Function gx) implements Function {
     public double compute(double x) {
         return fx.compute(x) - gx.compute(x);
     }
+
+    @Override
+    public Function differentiate() {
+        // TODO
+        return null;
+    }
 }

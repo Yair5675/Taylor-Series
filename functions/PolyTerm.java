@@ -10,8 +10,7 @@ package functions;
  * @param body
  * @param power
  */
-public record PolyTerm<T extends Function & Differentiable>(double scalar, T body, double power)
-        implements Function, Differentiable {
+public record PolyTerm(double scalar, Function body, double power) implements Function {
 
     @Override
     public double compute(double x) {
@@ -19,7 +18,7 @@ public record PolyTerm<T extends Function & Differentiable>(double scalar, T bod
     }
 
     @Override
-    public <F extends Function & Differentiable> F differentiate() {
+    public Function differentiate() {
         // TODO
         return null;
     }

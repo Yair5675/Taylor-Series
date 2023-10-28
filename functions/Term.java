@@ -84,4 +84,10 @@ public class Term implements Function {
             return 0;
         }
     }
+
+    @Override
+    public Function differentiate() {
+        // TODO
+        return null;
+    }
 }

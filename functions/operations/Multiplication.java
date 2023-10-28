@@ -15,4 +15,10 @@ public record Multiplication(Function[] functions) implements Function {
                 .mapToDouble(function -> function.compute(x))
                 .reduce(1.0, (accumulator, element) -> accumulator * element);
     }
+
+    @Override
+    public Function differentiate() {
+        // TODO
+        return null;
+    }
 }

@@ -14,4 +14,10 @@ public record Addition(Function[] functions) implements Function {
         // Sum the results of calling 'compute' on every function:
         return Arrays.stream(this.functions).mapToDouble((function -> function.compute(x))).sum();
     }
+
+    @Override
+    public Function differentiate() {
+        // TODO
+        return null;
+    }
 }
