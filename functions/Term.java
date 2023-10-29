@@ -43,6 +43,11 @@ public class Term implements Function {
         this.derivativeNum = 0;
     }
 
+    private Term(int derivativeNum) {
+        this();
+        this.derivativeNum = derivativeNum;
+    }
+
     /**
      * Adds a function as the outermost function to the Term.
      * @param func A function which will be the new outermost function in the Term.
