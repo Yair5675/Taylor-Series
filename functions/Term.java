@@ -1,5 +1,7 @@
 package functions;
 
+import java.util.LinkedList;
+
 public class Term implements Function {
     // The outermost function in the term:
     private TermNode head;
@@ -20,10 +22,15 @@ public class Term implements Function {
         // The next function (which is the function within the current function:
         private TermNode next;
 
+        // Since the current node might be used by derivatives as well, it will hold a list where each index corresponds
+        // to a derivative number (index 0 is connected to the first derivative, index 1 to the second and so on):
+        private LinkedList<TermNode> connectedDerivatives;
+
         public TermNode(TermNode prev, Function func, TermNode next) {
             this.prev = prev;
             this.func = func;
             this.next = next;
+            this.connectedDerivatives = new LinkedList<>();
         }
     }
 
