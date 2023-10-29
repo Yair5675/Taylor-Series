@@ -140,7 +140,29 @@ public class Term implements Function {
 
     @Override
     public Function differentiate() {
-        // TODO
-        return null;
+        // Storing the functions calculated by the chain function in a linked list until we multiply them:
+        final LinkedList<Function> functions = new LinkedList<>();
+
+        // Iterating over the function chain from the outermost function to the innermost:
+        TermNode pointer = this.head;
+        while (pointer != null) {
+            // Getting the derivative for the particular node:
+            final Function derivative = pointer.func.differentiate();
+
+            // Since the derivative of the outer function must apply to the inner function, we need to connect the
+            // derivative of the current node to the next function in the chain:
+            if (pointer.next != null) {
+                functions.addLast(pointer.next.connectAsDerivative(derivative, this.derivativeNum + 1));
+            }
+            else {
+                functions.addLast(derivative);
+            }
+
+            // Move to the next function:
+            pointer = pointer.next;
+        }
+
+        // Once all functions were calculated according to the chain rule, multiply them all together:
+        return new Multiplication(functions.toArray(new Function[0]));
     }
 }
