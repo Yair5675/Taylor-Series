@@ -1,5 +1,7 @@
 package functions;
 
+import functions.operations.Multiplication;
+
 import java.util.LinkedList;
 
 public class Term implements Function {
@@ -34,6 +36,41 @@ public class Term implements Function {
             this.func = func;
             this.next = next;
             this.connectedDerivatives = new LinkedList<>();
+        }
+
+        /**
+         * Receives a Function which represents a derivative of an outer function. The function will return a Term
+         * object which include said function as the head (the outermost function), and the current TermNode (and those
+         * after it) will serve as inner functions inside the outer one.
+         * @param derivative A function which represents an outer derivative who needs the current TermNode as an inner
+         *                   derivative.
+         * @param derivativeNum The number of differentiation that resulted in the given function. This is necessary to
+         *                      place the head of the returned complex function in the correct index of the
+         *                      'connectedDerivatives' list.
+         * @return A Term object that represents a complex function made of the given function as an outer function, and
+         *         the rest of the TermNodes chain as inner functions.
+         */
+        public Term connectAsDerivative(Function derivative, int derivativeNum) {
+            // initializing the complex function:
+            Term complexFunc = new Term(derivativeNum);
+
+            // Connecting the derivative as the head of the complex function:
+            complexFunc.append_start(derivative);
+
+            // Connecting the head to the current TermNode (needed when computing a value for the derivative):
+            this.connectedDerivatives.add(derivativeNum - 1, complexFunc.head);
+
+            // Connecting the complex function's head to the current node:
+            complexFunc.head.next = this;
+
+            // Connecting the tail of the complex function to the end of the current chain:
+            TermNode pointer = this;
+            while (pointer.next != null) {
+                pointer = pointer.next;
+            }
+            complexFunc.tail = pointer;
+
+            return complexFunc;
         }
     }
 
