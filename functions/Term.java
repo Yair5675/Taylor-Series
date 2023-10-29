@@ -9,6 +9,9 @@ public class Term implements Function {
     // The innermost function in the term:
     private TermNode tail;
 
+    // The number o derivative this term is (0 if it was the original function, 1 for the first derivative and so on):
+    private int derivativeNum;
+
     /**
      * A class to represent a function within another function and to serve as a node in the overall function chain.
      */
@@ -37,6 +40,7 @@ public class Term implements Function {
     public Term() {
         this.head = null;
         this.tail = null;
+        this.derivativeNum = 0;
     }
 
     /**
