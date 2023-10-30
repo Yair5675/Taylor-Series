@@ -212,9 +212,12 @@ public class Term implements Function {
         String message = "x";
         TermNode pointer = this.head;
         while (pointer != null) {
-            message = message.replace("x", pointer.func.toString());
+            message = message.replace("x", String.format("(%s)", pointer.func.toString()));
             pointer = pointer.next;
         }
+
+        // Remove outermost parenthesis:
+        message = message.substring(1, message.length() - 1);
 
         return message;
     }
