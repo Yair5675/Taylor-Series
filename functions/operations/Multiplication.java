@@ -15,8 +15,11 @@ public record Multiplication(Function fx, Function gx) implements Function {
 
     @Override
     public Function differentiate() {
-        // TODO
-        return null;
+        // Differentiate according to the product rule:
+        return new Addition(
+                new Multiplication(this.fx.differentiate(), this.gx),
+                new Multiplication(this.gx.differentiate(), this.fx)
+        );
     }
 
     @Override
