@@ -17,10 +17,6 @@ public class Addition implements Function {
         this.functions = (ArrayList<Function>) List.of(functions);
     }
 
-    public ArrayList<Function> getFunctions() {
-        return functions;
-    }
-
     @Override
     public double compute(double x) {
         // Sum the results of calling 'compute' on every function:
