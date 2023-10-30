@@ -6,15 +6,12 @@ package functions;
  *      2.5x^2
  *      3(x + 1)^3
  *      x^0.5 (which is just sqrt(x))
- * @param scalar
- * @param body
- * @param power
  */
-public record PolyTerm(double scalar, Function body, double power) implements Function {
+public record PolyTerm(double scalar, double power) implements Function {
 
     @Override
     public double compute(double x) {
-        return this.scalar * Math.pow(this.body.compute(x), this.power);
+        return this.scalar * Math.pow(x, this.power);
     }
 
     @Override
