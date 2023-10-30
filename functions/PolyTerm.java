@@ -23,4 +23,9 @@ public record PolyTerm(double scalar, double power) implements Function {
         else
             return new PolyTerm(this.scalar * this.power, this.power - 1);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%fx^(%f)", this.scalar, this.power);
+    }
 }
