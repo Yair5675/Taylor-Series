@@ -16,7 +16,11 @@ public record PolyTerm(double scalar, double power) implements Function {
 
     @Override
     public Function differentiate() {
-        // TODO
-        return null;
+        // If the current polynomial term is a constant:
+        if (this.power == 0)
+            return new PolyTerm(0, 0);
+        // If not, use the power rule:
+        else
+            return new PolyTerm(this.scalar * this.power, this.power - 1);
     }
 }
