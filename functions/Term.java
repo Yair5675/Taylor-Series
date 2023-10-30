@@ -121,21 +121,61 @@ public class Term implements Function {
         }
     }
 
+    /**
+     * Computes the Term's value assuming the term is not a part of a derivative.
+     * @param x The value substituted in the innermost function and then propagated up the term chain.
+     * @return The value of the complex function for the given x. If the complex function is empty, x is returned.
+     */
+    private double computeIfNormal(double x) {
+        // Go from the innermost function outwards:
+        TermNode pointer = this.tail;
+        while (pointer != null) {
+            x = pointer.func.compute(x);
+            // Go up the chain normally:
+            pointer = pointer.prev;
+        }
+
+        return x;
+    }
+
+    /**
+     * Computes the Term's value assuming the term is a part of a derivative and connected to another complex function.
+     * @param x The value substituted in the innermost function and then propagated up the term chain.
+     * @return The value of the complex function for the given x. If the complex function is empty, x is returned.
+     */
+    private double computeIfDerivative(double x) {
+        // Making sure there is a function:
+        if (this.head == null) return x;
+
+        // We need to go from the innermost function outwards. However, each node may be connected to other derivatives.
+        // To avoid calculating other derivatives, we will check when the node is connected to the current derivative by
+        // checking if it's the second node in the chain (the head is the outer derivative, and the second node is the
+        // inner function):
+        TermNode pointer = this.tail;
+        final TermNode connectedNode = this.head.next;
+        // If the derivative of the outer function doesn't have an inner function:
+        if (connectedNode == null)
+            return this.head.func.compute(x);
+
+        // Go up normally until you reach the connected node:
+        while (pointer != null) {
+            x = pointer.func.compute(x);
+            // If it's the connected node, go up through the derivative index:
+            if (pointer == connectedNode)
+                pointer = connectedNode.connectedDerivatives.get(this.derivativeNum - 1);
+                // If not, advance normally:
+            else
+                pointer = pointer.prev;
+        }
+        return x;
+    }
+
     @Override
     public double compute(double x) {
-        if (this.tail != null) {
-            // Going from the innermost function outwards to compute the term:
-            TermNode pointer = this.tail;
-            while (pointer != null) {
-                x = pointer.func.compute(x);
-                pointer = pointer.prev;
-            }
-
-            return x;
-        }
-        else {
-            return 0;
-        }
+        if (this.derivativeNum == 0)
+            return this.computeIfNormal(x);
+        else
+            return this.computeIfDerivative(x);
     }
 
     @Override
