@@ -1,10 +1,9 @@
 package functions.operations;
 
 import functions.Function;
-import java.util.Arrays;
 
 /**
- * A class that represents the product between multiple functions.
+ * A record that represents the product between multiple functions.
  */
 public record Multiplication(Function fx, Function gx) implements Function {
 
