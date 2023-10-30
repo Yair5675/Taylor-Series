@@ -133,8 +133,18 @@ public class Term implements Function {
             pointer = pointer.next;
         }
 
-        // Once all functions were calculated according to the chain rule, multiply them all together:
-        return new Multiplication(functions.toArray(new Function[0]));
+        // If not functions were produced, simply return f'(x) = x:
+        if (functions.isEmpty())
+            return new PolyTerm(1, 1);
+        // If only one function was produced, return it:
+        else if (functions.size() == 1)
+            return functions.get(0);
+        // If multiple functions were produced, multiply them together:
+        Multiplication multiplication = new Multiplication(functions.removeFirst(), functions.removeFirst());
+        while (!functions.isEmpty())
+            multiplication = new Multiplication(multiplication, functions.removeFirst());
+
+        return multiplication;
     }
 
     @Override
