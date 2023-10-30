@@ -205,4 +205,17 @@ public class Term implements Function {
         // Once all functions were calculated according to the chain rule, multiply them all together:
         return new Multiplication(functions.toArray(new Function[0]));
     }
+
+    @Override
+    public String toString() {
+        // Go from the outermost function to the innermost function (if there are no functions, 'x' will be returned):
+        String message = "x";
+        TermNode pointer = this.head;
+        while (pointer != null) {
+            message = message.replace("x", pointer.func.toString());
+            pointer = pointer.next;
+        }
+
+        return message;
+    }
 }
