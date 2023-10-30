@@ -14,7 +14,7 @@ public class Addition implements Function {
     private final ArrayList<Function> functions;
 
     public Addition(Function ... functions) {
-        this.functions = (ArrayList<Function>) List.of(functions);
+        this.functions = new ArrayList<>(List.of(functions));
     }
 
     @Override
