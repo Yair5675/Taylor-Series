@@ -21,4 +21,15 @@ public record Multiplication(Function[] functions) implements Function {
         // TODO
         return null;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.functions.length; i++) {
+            sb.append(this.functions[i].toString());
+            if (i < this.functions.length - 1)
+                sb.append(" * ");
+        }
+        return sb.toString();
+    }
 }
