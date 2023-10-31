@@ -24,6 +24,17 @@ public record PolyTerm(double scalar, double power) implements Function {
             return new PolyTerm(this.scalar * this.power, this.power - 1);
     }
 
+    /**
+     * Given two polynomial terms, the function returns the product of the two terms. This function should be used when
+     * simplifying terms is needed. The function does not affect the two terms it receives, only creates a new one.
+     * @param a Any polynomial term, including a constant.
+     * @param b Any polynomial term, including a constant.
+     * @return The product of a and b.
+     */
+    public static PolyTerm multiply(PolyTerm a, PolyTerm b) {
+        return new PolyTerm(a.scalar * b.scalar, a.power + b.power);
+    }
+
     @Override
     public String toString() {
         // If the scalar is zero, return zero:
