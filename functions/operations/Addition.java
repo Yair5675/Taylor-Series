@@ -25,7 +25,7 @@ public class Addition implements Function {
 
     @Override
     public Function differentiate() {
-        // TODO
-        return null;
+        // The derivative of a sum is the sum of derivatives:
+        return new Addition(this.functions.stream().map(Function::differentiate).toArray(Function[]::new));
     }
 }
