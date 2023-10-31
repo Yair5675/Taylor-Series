@@ -1,7 +1,7 @@
 package functions.operations;
 
 import functions.Function;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -10,10 +10,10 @@ import java.util.List;
  */
 public class Addition implements Function {
     // The functions which are summed up:
-    private final ArrayList<Function> functions;
+    private final LinkedList<Function> functions;
 
     public Addition(Function ... functions) {
-        this.functions = new ArrayList<>(List.of(functions));
+        this.functions = new LinkedList<>(List.of(functions));
     }
 
     @Override
@@ -33,8 +33,7 @@ public class Addition implements Function {
         if (this.functions.isEmpty()) return "";
 
         final StringBuilder sb = new StringBuilder();
-
-        String nextFunc = this.functions.get(0).toString();
+        String nextFunc = this.functions.getFirst().toString();
         for (int i = 0; i < this.functions.size(); i++) {
             // Enter the current function's toString:
             sb.append(nextFunc);
