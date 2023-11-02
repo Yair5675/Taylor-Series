@@ -47,6 +47,9 @@ public class Addition implements Function {
             }
         }
 
+        // Adding parenthesis if there is more than one term:
+        if (this.functions.size() > 1)
+            sb.insert(0, '(').append(")");
         return sb.toString();
     }
 }
