@@ -1,5 +1,7 @@
 package functions;
 
+import functions.interfaces.Function;
+
 /**
  * A single polynomial term. This class represents any function raised to a power and multiplied by a scalar value.
  * Examples:

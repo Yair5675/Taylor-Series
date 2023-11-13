@@ -1,6 +1,6 @@
 package functions.operations;
 
-import functions.Function;
+import functions.interfaces.Function;
 
 /**
  * A record that represents the product between multiple functions.

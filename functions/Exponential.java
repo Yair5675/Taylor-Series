@@ -1,5 +1,7 @@
 package functions;
 
+import functions.interfaces.Function;
+
 public class Exponential implements Function {
     @Override
     public double compute(double x) {

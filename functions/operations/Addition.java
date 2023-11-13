@@ -1,6 +1,6 @@
 package functions.operations;
 
-import functions.Function;
+import functions.interfaces.Function;
 import java.util.LinkedList;
 import java.util.List;
 

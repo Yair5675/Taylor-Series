@@ -1,5 +1,6 @@
 package functions;
 
+import functions.interfaces.Function;
 import functions.operations.Multiplication;
 
 import java.util.LinkedList;
