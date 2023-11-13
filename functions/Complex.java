@@ -4,24 +4,24 @@ import functions.operations.Multiplication;
 
 import java.util.LinkedList;
 
-public class Term implements Function {
-    // The outermost function in the term:
-    private TermNode head;
+public class Complex implements Function {
+    // The outermost function in the complex function:
+    private FuncNode head;
 
-    // The innermost function in the term:
-    private TermNode tail;
+    // The innermost function in the complex function:
+    private FuncNode tail;
 
     /**
      * A class to represent a function within another function and to serve as a node in the overall function chain.
      */
-    private static class TermNode {
+    private static class FuncNode {
         // The function of the current node:
         private final Function func;
 
         // The next function (which is the function within the current function:
-        private TermNode next;
+        private FuncNode next;
 
-        public TermNode(Function func, TermNode next) {
+        public FuncNode(Function func, FuncNode next) {
             this.func = func;
             this.next = next;
         }
@@ -36,17 +36,17 @@ public class Term implements Function {
         }
 
         /**
-         * Receives a Function which represents a derivative of an outer function. The function will return a Term
-         * object which include said function as the head (the outermost function), and the current TermNode (and those
+         * Receives a Function which represents a derivative of an outer function. The function will return a Complex
+         * object which include said function as the head (the outermost function), and the current FuncNode (and those
          * after it) will serve as inner functions inside the outer one.
-         * @param derivative A function which represents an outer derivative who needs the current TermNode as an inner
+         * @param derivative A function which represents an outer derivative who needs the current FuncNode as an inner
          *                   derivative.
-         * @return A Term object that represents a complex function made of the given function as an outer function, and
+         * @return A Complex object that represents a complex function made of the given function as an outer function, and
          *         the rest of the TermNodes chain as inner functions.
          */
-        public Term connectAsDerivative(Function derivative) {
+        public Complex connectAsDerivative(Function derivative) {
             // Initializing the complex function:
-            Term complexFunc = new Term();
+            Complex complexFunc = new Complex();
 
             // Connecting the derivative as the head of the complex function:
             complexFunc.append_start(derivative);
@@ -55,7 +55,7 @@ public class Term implements Function {
             complexFunc.head.next = this;
 
             // Connecting the tail of the complex function to the end of the current chain:
-            TermNode pointer = this;
+            FuncNode pointer = this;
             while (pointer.next != null) {
                 pointer = pointer.next;
             }
@@ -65,40 +65,40 @@ public class Term implements Function {
         }
     }
 
-    public Term() {
+    public Complex() {
         this.head = null;
         this.tail = null;
     }
 
     /**
-     * Adds a function as the outermost function to the Term.
-     * @param func A function which will be the new outermost function in the Term.
+     * Adds a function as the outermost function to the Complex.
+     * @param func A function which will be the new outermost function in the Complex.
      */
     public void append_start(Function func) {
         // If there is no head (by that check there isn't a tail either):
         if (this.head == null) {
-            this.head = new TermNode(func, null);
+            this.head = new FuncNode(func, null);
             this.tail = this.head;
         }
         // If there is, connect it to the start:
         else {
-            this.head = new TermNode(func, this.head);
+            this.head = new FuncNode(func, this.head);
         }
     }
 
     /**
-     * Adds a function as the innermost function to the Term.
-     * @param func A function which will be the new innermost function in the Term.
+     * Adds a function as the innermost function to the complex function.
+     * @param func A function which will be the new innermost function in the complex function.
      */
     public void append_end(Function func) {
         // If there is no tail (by that check there isn't a head either):
         if (this.tail == null) {
-            this.tail = new TermNode(func, null);
+            this.tail = new FuncNode(func, null);
             this.head = this.tail;
         }
         // If there is, connect it to the end:
         else {
-            final TermNode new_tail = new TermNode(func, null);
+            final FuncNode new_tail = new FuncNode(func, null);
             this.tail.next = new_tail;
             this.tail = new_tail;
         }
@@ -115,7 +115,7 @@ public class Term implements Function {
         final LinkedList<Function> functions = new LinkedList<>();
 
         // Iterating over the function chain from the outermost function to the innermost:
-        TermNode pointer = this.head;
+        FuncNode pointer = this.head;
         while (pointer != null) {
             // Getting the derivative for the particular node:
             final Function derivative = pointer.func.differentiate();
@@ -151,7 +151,7 @@ public class Term implements Function {
     public String toString() {
         // Go from the outermost function to the innermost function (if there are no functions, 'x' will be returned):
         String message = "x";
-        TermNode pointer = this.head;
+        FuncNode pointer = this.head;
         while (pointer != null) {
             message = message.replace("x", String.format("(%s)", pointer.func.toString()));
             pointer = pointer.next;
