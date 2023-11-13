@@ -1,9 +1,10 @@
 package functions.operations;
 
+import functions.Comparator;
 import functions.interfaces.Function;
 import functions.interfaces.Simplifiable;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,10 +13,12 @@ import java.util.List;
  */
 public class Addition implements Function, Simplifiable {
     // The functions which are summed up:
-    private final LinkedList<Function> functions;
+    private final ArrayList<Function> functions;
 
     public Addition(Function ... functions) {
-        this.functions = new LinkedList<>(List.of(functions));
+        // Sort the functions for better simplification time complexity later:
+        this.functions = new ArrayList<>(List.of(functions));
+        this.functions.sort(new Comparator());
     }
 
     @Override
@@ -35,7 +38,7 @@ public class Addition implements Function, Simplifiable {
         if (this.functions.isEmpty()) return "";
 
         final StringBuilder sb = new StringBuilder();
-        String nextFunc = this.functions.getFirst().toString();
+        String nextFunc = this.functions.get(0).toString();
         for (int i = 0; i < this.functions.size(); i++) {
             // Enter the current function's toString:
             sb.append(nextFunc);
