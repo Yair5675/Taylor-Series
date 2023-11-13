@@ -11,6 +11,9 @@ public class Complex implements Function {
     // The innermost function in the complex function:
     private FuncNode tail;
 
+    // The number of nested functions in the complex function:
+    private int size;
+
     /**
      * A class to represent a function within another function and to serve as a node in the overall function chain.
      */
@@ -55,11 +58,14 @@ public class Complex implements Function {
             complexFunc.head.next = this;
 
             // Connecting the tail of the complex function to the end of the current chain:
+            int size = 2;
             FuncNode pointer = this;
             while (pointer.next != null) {
+                size++;
                 pointer = pointer.next;
             }
             complexFunc.tail = pointer;
+            complexFunc.size = size;
 
             return complexFunc;
         }
@@ -68,6 +74,7 @@ public class Complex implements Function {
     public Complex() {
         this.head = null;
         this.tail = null;
+        this.size = 0;
     }
 
     /**
@@ -75,6 +82,7 @@ public class Complex implements Function {
      * @param func A function which will be the new outermost function in the Complex.
      */
     public void append_start(Function func) {
+        this.size++;
         // If there is no head (by that check there isn't a tail either):
         if (this.head == null) {
             this.head = new FuncNode(func, null);
@@ -91,6 +99,7 @@ public class Complex implements Function {
      * @param func A function which will be the new innermost function in the complex function.
      */
     public void append_end(Function func) {
+        this.size++;
         // If there is no tail (by that check there isn't a head either):
         if (this.tail == null) {
             this.tail = new FuncNode(func, null);
@@ -102,6 +111,14 @@ public class Complex implements Function {
             this.tail.next = new_tail;
             this.tail = new_tail;
         }
+    }
+
+    /**
+     * Returns the number of functions in the complex function.
+     * @return The number of nested functions in the complex function.
+     */
+    public int size() {
+        return this.size;
     }
 
     @Override
@@ -136,9 +153,11 @@ public class Complex implements Function {
         // If not functions were produced, simply return f'(x) = x:
         if (functions.isEmpty())
             return new PolyTerm(1, 1);
+
         // If only one function was produced, return it:
         else if (functions.size() == 1)
             return functions.get(0);
+
         // If multiple functions were produced, multiply them together:
         Multiplication multiplication = new Multiplication(functions.removeFirst(), functions.removeFirst());
         while (!functions.isEmpty())
