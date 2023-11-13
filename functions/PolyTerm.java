@@ -9,7 +9,17 @@ import functions.interfaces.Function;
  *      3(x + 1)^3
  *      x^0.5 (which is just sqrt(x))
  */
-public record PolyTerm(double scalar, double power) implements Function {
+public class PolyTerm implements Function{
+    // The scalar of the polynomial term:
+    private double scalar;
+
+    // The power of the polynomial term:
+    private double power;
+
+    public PolyTerm(double scalar, double power) {
+        this.scalar = scalar;
+        this.power = power;
+    }
 
     @Override
     public double compute(double x) {
@@ -35,6 +45,14 @@ public record PolyTerm(double scalar, double power) implements Function {
      */
     public static PolyTerm multiply(PolyTerm a, PolyTerm b) {
         return new PolyTerm(a.scalar * b.scalar, a.power + b.power);
+    }
+
+    public double power() {
+        return power;
+    }
+
+    public double scalar() {
+        return scalar;
     }
 
     @Override
