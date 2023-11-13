@@ -1,6 +1,8 @@
 package functions.operations;
 
 import functions.interfaces.Function;
+import functions.interfaces.Simplifiable;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
 /**
  * A class that represents addition of multiple functions.
  */
-public class Addition implements Function {
+public class Addition implements Function, Simplifiable {
     // The functions which are summed up:
     private final LinkedList<Function> functions;
 
@@ -51,5 +53,11 @@ public class Addition implements Function {
         if (this.functions.size() > 1)
             sb.insert(0, '(').append(")");
         return sb.toString();
+    }
+
+    @Override
+    public Function simplify() {
+        // TODO Complete the simplification function
+        return null;
     }
 }
