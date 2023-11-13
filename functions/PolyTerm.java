@@ -1,6 +1,10 @@
 package functions;
 
 import functions.interfaces.Function;
+import functions.operations.Addition;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A single polynomial term. This class represents any function raised to a power and multiplied by a scalar value.
@@ -36,6 +40,30 @@ public class PolyTerm implements Function{
             return new PolyTerm(this.scalar * this.power, this.power - 1);
     }
 
+    public static Function sum(PolyTerm ... terms) {
+        if (terms.length == 0)
+            return new PolyTerm(0, 0);
+
+        final LinkedList<PolyTerm> summedPolynomials = new LinkedList<>(List.of(terms[0]));
+        for (int i = 1; i < terms.length; i++) {
+            boolean simplified = false;
+            final PolyTerm f = summedPolynomials.get(i);
+
+            for (final PolyTerm g : summedPolynomials) {
+                if (f.power == g.power) {
+                    g.scalar += f.scalar;
+                    simplified = true;
+                    break;
+                }
+            }
+
+            if (!simplified)
+                summedPolynomials.addLast(f);
+        }
+
+        return new Addition(summedPolynomials.toArray(Function[]::new));
+    }
+
     /**
      * Given two polynomial terms, the function returns the product of the two terms. This function should be used when
      * simplifying terms is needed. The function does not affect the two terms it receives, only creates a new one.
@@ -51,8 +79,16 @@ public class PolyTerm implements Function{
         return power;
     }
 
+    public void setPower(double power) {
+        this.power = power;
+    }
+
     public double scalar() {
         return scalar;
+    }
+
+    public void setScalar(double scalar) {
+        this.scalar = scalar;
     }
 
     @Override
