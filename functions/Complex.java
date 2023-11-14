@@ -53,7 +53,7 @@ public class Complex implements Function {
             Complex complexFunc = new Complex();
 
             // Connecting the derivative as the head of the complex function:
-            complexFunc.append_start(derivative);
+            complexFunc.appendStart(derivative);
 
             // Connecting the complex function's head to the current node:
             complexFunc.head.next = this;
@@ -82,7 +82,7 @@ public class Complex implements Function {
      * Adds a function as the outermost function to the Complex.
      * @param func A function which will be the new outermost function in the Complex.
      */
-    public void append_start(Function func) {
+    public void appendStart(Function func) {
         this.size++;
         // If there is no head (by that check there isn't a tail either):
         if (this.head == null) {
@@ -99,7 +99,7 @@ public class Complex implements Function {
      * Adds a function as the innermost function to the complex function.
      * @param func A function which will be the new innermost function in the complex function.
      */
-    public void append_end(Function func) {
+    public void appendEnd(Function func) {
         this.size++;
         // If there is no tail (by that check there isn't a head either):
         if (this.tail == null) {

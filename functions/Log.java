@@ -35,8 +35,8 @@ public class Log implements Function {
 
         // Derivative of a log with special base is (x * ln(base)) ^ -1:
         final Complex derivative = new Complex();
-        derivative.append_start(new PolyTerm(1, -1));
-        derivative.append_end(new Multiplication(new PolyTerm(1, 1), new Log()));
+        derivative.appendStart(new PolyTerm(1, -1));
+        derivative.appendEnd(new Multiplication(new PolyTerm(1, 1), new Log()));
 
         return derivative;
     }
