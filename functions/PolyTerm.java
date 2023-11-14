@@ -92,6 +92,26 @@ public class PolyTerm implements Function{
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+
+        if (this == obj)
+            return true;
+
+        if (obj instanceof PolyTerm other)
+            return this.scalar == other.scalar && this.power == other.power;
+
+        else if (obj instanceof Complex other) {
+            if (other.size() == 1)
+                if (other.getFunctionAt(0) instanceof PolyTerm polyTerm)
+                    return this.scalar == polyTerm.scalar && this.power == polyTerm.power;
+        }
+
+        return false;
+    }
+
+    @Override
     public String toString() {
         // If the scalar is zero, return zero:
         if (this.scalar == 0) return "0";
