@@ -40,4 +40,23 @@ public class Log implements Function {
 
         return derivative;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+
+        else if (this == obj)
+            return true;
+
+        else if (obj instanceof Log other)
+            return this.base == other.base;
+
+        else if (obj instanceof Complex other)
+            if (other.size() == 1)
+                if (other.getFunctionAt(0) instanceof Log log)
+                    return this.base == log.base;
+
+        return false;
+    }
 }
