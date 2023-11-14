@@ -114,6 +114,17 @@ public class Complex implements Function {
         }
     }
 
+    public Function getFunctionAt(int index) {
+        if (index >= this.size)
+            return null;
+
+        FuncNode pointer = this.head;
+        while (index-- > 0)
+            pointer = pointer.next;
+
+        return pointer.func;
+    }
+
     /**
      * Returns the number of functions in the complex function.
      * @return The number of nested functions in the complex function.
