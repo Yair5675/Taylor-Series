@@ -45,4 +45,23 @@ public class Exponential implements Function {
 
         return String.format("%s^x", base);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+
+        else if (this == obj)
+            return true;
+
+        else if (obj instanceof Exponential other)
+            return this.base == other.base;
+
+        else if (obj instanceof Complex other)
+            if (other.size() == 1)
+                if (other.getFunctionAt(0) instanceof Exponential exp)
+                    return this.base == exp.base;
+
+        return false;
+    }
 }
