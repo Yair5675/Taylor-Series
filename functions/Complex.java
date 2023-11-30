@@ -30,6 +30,25 @@ public class Complex implements Function {
             this.next = next;
         }
 
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null)
+                return false;
+
+            if (this == obj)
+                return true;
+
+            if (obj instanceof FuncNode other) {
+                if (!this.func.equals(other.func))
+                    return false;
+                else if (this.next == null)
+                    return other.next == null;
+                else
+                    return this.next.equals(other.next);
+            }
+            return false;
+        }
+
         /**
          * Computes the value of all the functions from this node onwards using recursion.
          * @param x A parameter for the innermost function which will be propagated up.
