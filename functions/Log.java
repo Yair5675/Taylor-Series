@@ -59,4 +59,16 @@ public class Log implements Function {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        if (this.base == Math.E)
+            return "ln(x)";
+
+        // Remove trailing zeroes from base:
+        String base = Double.toString(this.base).replaceAll("0*?", "");
+        base = this.base == (int) this.base ? Integer.toString((int) this.base) : base;
+
+        return String.format("log%s(x)", base);
+    }
 }
