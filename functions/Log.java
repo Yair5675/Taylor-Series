@@ -1,7 +1,6 @@
 package functions;
 
 import functions.interfaces.Function;
-import functions.operations.Multiplication;
 
 public class Log implements Function {
     private double base;
@@ -34,11 +33,7 @@ public class Log implements Function {
             return new PolyTerm(1, -1);
 
         // Derivative of a log with special base is (x * ln(base)) ^ -1:
-        final Complex derivative = new Complex();
-        derivative.appendStart(new PolyTerm(1, -1));
-        derivative.appendEnd(new Multiplication(new PolyTerm(1, 1), new Log()));
-
-        return derivative;
+        return new PolyTerm(1 / Math.log(this.base), -1);
     }
 
     @Override
